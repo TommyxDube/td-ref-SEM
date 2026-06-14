@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SEM Senior — Guide Platine Complet</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;700&display=swap');
+
+  :root {
+    --bg: #ffffff;
+    --surface: #f5f5f5;
+    --surface2: #ebebeb;
+    --border: #cccccc;
+    --text: #111111;
+    --muted: #666666;
+    --black: #111111;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    display: flex;
+  }
+
+  /* ───────── SIDEBAR ───────── */
+  .sidebar {
+    width: 260px;
+    flex-shrink: 0;
+    height: 100vh;
+    overflow-y: auto;
+    background: var(--black);
+    color: #ccc;
+    padding: 24px 0;
+    position: sticky;
+    top: 0;
+  }
+  .sidebar-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 18px;
+    color: #fff;
+    padding: 0 20px 16px;
+    border-bottom: 1px solid #333;
+    margin-bottom: 12px;
+  }
+  .sidebar-title small {
+    display: block;
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: #666;
+    font-weight: 400;
+    margin-top: 6px;
+  }
+  .nav-group { margin-bottom: 4px; }
+  .nav-group-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #555;
+    padding: 14px 20px 6px;
+  }
+  .nav-link {
+    display: block;
+    padding: 6px 20px;
+    font-size: 12px;
+    color: #999;
+    text-decoration: none;
+    border-left: 2px solid transparent;
+    transition: all 0.15s;
+  }
+  .nav-link:hover { color: #fff; background: #1a1a1a; }
+  .nav-link.active { color: #fff; border-left-color: #fff; background: #1a1a1a; font-weight: 500; }
+
+  /* ───────── MAIN ───────── */
+  .main {
+    flex: 1;
+    max-width: 980px;
+    padding: 48px 56px 120px;
+  }
+
+  .hero {
+    background: var(--black);
+    color: #fff;
+    padding: 40px 36px;
+    border-radius: 10px;
+    margin-bottom: 40px;
+  }
+  .hero .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: #666;
+    margin-bottom: 14px;
+  }
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: 38px;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 10px;
+  }
+  .hero p { color: #999; font-size: 14px; max-width: 560px; }
+
+  section { margin-bottom: 56px; }
+  section h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--black);
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--black);
+    margin-bottom: 16px;
+    scroll-margin-top: 24px;
+  }
+  section h2 .num {
+    font-family: 'DM Mono', monospace;
+    font-size: 14px;
+    color: var(--muted);
+    font-weight: 500;
+    margin-right: 10px;
+  }
+  h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--black);
+    margin: 24px 0 8px;
+    scroll-margin-top: 24px;
+  }
+  h4 {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: #333;
+    margin: 14px 0 6px;
+  }
+  p { margin-bottom: 8px; color: #333; font-size: 13.5px; }
+  p.lead { font-size: 14.5px; color: #444; }
+
+  ul.std { list-style: none; margin: 6px 0 12px; }
+  ul.std li {
+    font-size: 13px;
+    color: #333;
+    padding: 4px 0 4px 16px;
+    position: relative;
+    line-height: 1.5;
+    border-bottom: 1px solid #f2f2f2;
+  }
+  ul.std li:last-child { border-bottom: none; }
+  ul.std li::before { content: '—'; position: absolute; left: 0; color: #999; }
+  ul.std li b { color: #111; }
+
+  /* ───────── TABLES ───────── */
+  table.data {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 10px 0 16px;
+    font-size: 12.5px;
+  }
+  table.data th {
+    background: var(--black);
+    color: #fff;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-align: left;
+    padding: 9px 12px;
+  }
+  table.data td {
+    padding: 8px 12px;
+    border-bottom: 1px solid #eee;
+    vertical-align: top;
+  }
+  table.data tr:nth-child(even) td { background: #fafafa; }
+  table.data tr:last-child td { border-bottom: none; }
+  table.data td:first-child { font-weight: 600; white-space: nowrap; }
+
+  /* ───────── CARDS / BOXES ───────── */
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 12px 0 16px; }
+  .grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin: 12px 0 16px; }
+  @media (max-width: 700px) { .grid2, .grid3 { grid-template-columns: 1fr; } }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px 18px;
+  }
+  .card-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+
+  .note, .warn {
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin: 8px 0;
+    font-size: 12.5px;
+    color: #333;
+    line-height: 1.5;
+    background: #fafafa;
+    display: flex;
+    gap: 8px;
+  }
+  .note .ic, .warn .ic { flex-shrink: 0; }
+
+  .formula {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: #333;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 8px 12px;
+    display: inline-block;
+    margin: 4px 0;
+  }
+
+  code {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    background: var(--surface2);
+    padding: 1px 5px;
+    border-radius: 3px;
+  }
+
+  .badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 2px 8px;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: #555;
+    display: inline-block;
+    margin: 2px 4px 2px 0;
+  }
+
+  /* ───────── TREE (campaign structure) ───────── */
+  .tree {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 10px 0 16px;
+    font-size: 12.5px;
+  }
+  .tree-header {
+    background: #e8e8e8;
+    padding: 8px 14px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #555;
+  }
+  .tree-row {
+    display: flex;
+    align-items: flex-start;
+    padding: 8px 14px;
+    border-bottom: 1px solid #eee;
+    gap: 10px;
+  }
+  .tree-row:last-child { border-bottom: none; }
+  .tree-row.top { background: #f0f0f0; }
+  .tree-row.sub { background: #fafafa; padding-left: 32px; }
+  .t-badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 2px 7px;
+    border-radius: 3px;
+    border: 1px solid var(--border);
+    background: #fff;
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+  .t-label { font-size: 12.5px; font-weight: 500; }
+  .t-sub { font-family: 'DM Mono', monospace; font-size: 10px; color: #888; margin-top: 2px; }
+
+  /* ───────── TOC TOP ───────── */
+  .intro-box {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 18px 20px;
+    margin-bottom: 32px;
+    background: var(--surface);
+    font-size: 13px;
+    color: #444;
+    line-height: 1.6;
+  }
+
+  hr.sep { border: none; border-top: 1px solid #eee; margin: 20px 0; }
+
+  /* scroll-to-top */
+  .back-top {
+    position: fixed; bottom: 24px; right: 24px;
+    background: var(--black); color: #fff;
+    width: 40px; height: 40px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; text-decoration: none;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════ SIDEBAR ═══════════════════ -->
+<nav class="sidebar">
+  <div class="sidebar-title">SEM Senior<small>Guide Platine · Édition complète</small></div>
+
+  <div class="nav-group">
+    <div class="nav-group-title">Fondations</div>
+    <a class="nav-link" href="#glossaire">0 · Glossaire complet</a>
+    <a class="nav-link" href="#quality-score">1 · Quality Score &amp; Ad Rank</a>
+    <a class="nav-link" href="#types-correspondance">2 · Correspondances &amp; négatifs</a>
+  </div>
+
+  <div class="nav-group">
+    <div class="nav-group-title">Enchères &amp; Algorithmes</div>
+    <a class="nav-link" href="#strategies-encheres">3 · Stratégies d'enchères (toutes)</a>
+    <a class="nav-link" href="#portfolio-bidding">4 · Portfolio bid strategies</a>
+    <a class="nav-link" href="#pmax-deep">5 · Performance Max — Deep Dive</a>
+  </div>
+
+  <div class="nav-group">
+    <div class="nav-group-title">Tracking &amp; Data</div>
+    <a class="nav-link" href="#ga4-gtm">6 · GA4 + GTM avancé</a>
+    <a class="nav-link" href="#conversions-avancees">7 · Conversions avancées &amp; Enhanced Conversions</a>
+    <a class="nav-link" href="#privacy-cookieless">8 · Privacy &amp; monde cookieless</a>
+    <a class="nav-link" href="#attribution-deep">9 · Attribution — Deep Dive</a>
+  </div>
+
+  <div class="nav-group">
+    <div class="nav-group-title">Audiences &amp; Ciblage</div>
+    <a class="nav-link" href="#audiences-deep">10 · Audiences — toutes les couches</a>
+    <a class="nav-link" href="#shopping-feed">11 · Shopping &amp; Merchant Center</a>
+  </div>
+
+  <div class="nav-group">
+    <div class="nav-group-title">Automatisation &amp; Échelle</div>
+    <a class="nav-link" href="#scripts-api">12 · Scripts, API &amp; Automatisation</a>
+    <a class="nav-link" href="#structure-echelle">13 · Structures à grande échelle</a>
+    <a class="nav-link" href="#budget-pacing">14 · Budgets, pacing &amp; forecasting</a>
+  </div>
+
+  <div class="nav-group">
+    <div class="nav-group-title">Tests &amp; Mesure avancée</div>
+    <a class="nav-link" href="#experimentation">15 · Expérimentation &amp; incrementality</a>
+    <a class="nav-link" href="#cro-lp">16 · CRO &amp; Landing Pages — avancé</a>
+  </div>
+
+  <div class="nav-group">
+    <div class="nav-group-title">Écosystème &amp; Carrière</div>
+    <a class="nav-link" href="#multiplatform">17 · Microsoft, Meta, LinkedIn — multi-plateforme</a>
+    <a class="nav-link" href="#agence-client">18 · Gestion agence/client &amp; reporting</a>
+    <a class="nav-link" href="#veille-carriere">19 · Veille, certifications &amp; carrière</a>
+    <a class="nav-link" href="#checklist-finale">20 · Checklist maîtrise senior</a>
+  </div>
+</nav>
+
+<!-- ═══════════════════ MAIN ═══════════════════ -->
+<main class="main">
+
+  <div class="hero">
+    <div class="tag">// Guide platine — édition complète</div>
+    <h1>Tout ce qu'un Spécialiste<br>SEM Senior doit maîtriser</h1>
+    <p>Ce guide va au-delà des structures de campagnes : tracking avancé, monde cookieless, automatisation, audiences en couches, Merchant Center, expérimentation statistique, et gestion stratégique. C'est le niveau de connaissance attendu pour évoluer vers un rôle de direction.</p>
+  </div>
+
+  <div class="intro-box">
+    <b>Comment utiliser ce guide :</b> chaque section est indépendante — utilise la navigation à gauche. Les sections 0-2 sont des rappels fondamentaux ; les sections 3-16 sont le cœur "senior" ; 17-20 couvrent l'écosystème élargi et la posture professionnelle. Le contenu déjà couvert dans tes guides précédents (structures par KPI, questions d'entrevue) n'est pas répété ici — ce guide les complète.
+  </div>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- 0. GLOSSAIRE -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section id="glossaire">
+    <h2><span class="num">00</span>Glossaire complet — Termes essentiels</h2>
+    <p class="lead">Le vocabulaire que tu dois connaître par cœur, y compris les acronymes moins courants.</p>
+
+    <table class="data">
+      <tr><th>Terme</th><th>Définition</th></tr>
+      <tr><td>SQR</td><td>Search Query Report — rapport des requêtes réelles tapées par les utilisateurs, base de toute optimisation négative.</td></tr>
+      <tr><td>IS (Impression Share)</td><td>Part d'impressions reçues vs éligibles. Se décompose en Lost IS (Budget) et Lost IS (Rank).</td></tr>
+      <tr><td>Auction Insights</td><td>Rapport comparant ta position, IS, et overlap rate avec les concurrents sur les mêmes enchères.</td></tr>
+      <tr><td>Overlap Rate</td><td>% de fois où ton annonce et celle d'un concurrent apparaissent dans la même recherche.</td></tr>
+      <tr><td>Outranking Share</td><td>% de fois où ton annonce est classée au-dessus de celle d'un concurrent (ou apparaît seule).</td></tr>
+      <tr><td>SERP</td><td>Search Engine Results Page — page de résultats de recherche.</td></tr>
+      <tr><td>eCPC</td><td>Enhanced CPC — ajustement automatique ±30% des enchères manuelles selon la probabilité de conversion.</td></tr>
+      <tr><td>tCPA / tROAS</td><td>Target CPA / Target ROAS — stratégies Smart Bidding basées sur un objectif.</td></tr>
+      <tr><td>PMax</td><td>Performance Max — type de campagne IA diffusant sur tous les inventaires Google.</td></tr>
+      <tr><td>DSA</td><td>Dynamic Search Ads — annonces générées dynamiquement depuis le contenu du site.</td></tr>
+      <tr><td>RSA</td><td>Responsive Search Ads — annonces avec titres/descriptions multiples testés par Google.</td></tr>
+      <tr><td>RLSA</td><td>Remarketing Lists for Search Ads — listes de remarketing appliquées au Search.</td></tr>
+      <tr><td>CDP</td><td>Customer Data Platform — plateforme unifiant les données client (ex: Segment, Tealium).</td></tr>
+      <tr><td>1P Data</td><td>First-party data — données collectées directement par l'entreprise (CRM, site).</td></tr>
+      <tr><td>SDK</td><td>Software Development Kit — outils pour intégrer le tracking dans une app mobile.</td></tr>
+      <tr><td>MMM</td><td>Marketing Mix Modeling — modélisation statistique de l'impact de chaque canal, alternative à l'attribution au clic.</td></tr>
+      <tr><td>Incrementality</td><td>Mesure de l'impact réel additionnel d'un canal via tests géo ou holdout — répond à "et si on n'avait pas dépensé ce dollar ?"</td></tr>
+      <tr><td>Holdout Test</td><td>Test où une portion du trafic/marché est privée de la publicité pour mesurer l'impact réel (lift).</td></tr>
+      <tr><td>GCLID</td><td>Google Click Identifier — identifiant unique attaché à chaque clic, essentiel pour l'import de conversions offline.</td></tr>
+      <tr><td>Enhanced Conversions</td><td>Envoi de données hashées (email, téléphone) avec chaque conversion pour améliorer la mesure en environnement cookieless.</td></tr>
+      <tr><td>Consent Mode v2</td><td>Mécanisme Google pour ajuster le tracking selon le consentement RGPD/Loi 25 de l'utilisateur.</td></tr>
+      <tr><td>Server-Side Tagging</td><td>Tracking exécuté côté serveur (via GTM Server) plutôt que dans le navigateur — plus résilient aux bloqueurs.</td></tr>
+      <tr><td>Value-Based Bidding</td><td>Enchères optimisées selon la valeur réelle de chaque conversion, pas seulement leur nombre.</td></tr>
+      <tr><td>Broad Match + Smart Bidding</td><td>Combinaison moderne recommandée par Google : correspondance large pilotée par algorithme de conversion.</td></tr>
+      <tr><td>Search Themes (PMax)</td><td>Signaux de thèmes de recherche ajoutés manuellement aux asset groups PMax depuis 2023.</td></tr>
+      <tr><td>Asset Group</td><td>Unité PMax équivalente à un groupe d'annonces — contient les assets créatifs et signaux d'audience.</td></tr>
+      <tr><td>Listing Group</td><td>Subdivision des produits Shopping dans PMax/Shopping (équivalent product groups).</td></tr>
+      <tr><td>Feed Rules</td><td>Règles Merchant Center transformant automatiquement les données du flux produit sans toucher au site.</td></tr>
+      <tr><td>Supplemental Feed</td><td>Flux secondaire enrichissant le flux principal (ex: ajout de custom labels sans re-export complet).</td></tr>
+      <tr><td>Pacing</td><td>Rythme de dépense d'un budget dans le temps — surveiller pour éviter sous/sur-dépense.</td></tr>
+      <tr><td>Pmax channel reporting</td><td>Rapport (depuis 2023) montrant la répartition de PMax par canal (Search, Display, YouTube, etc.)</td></tr>
+    </table>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- 1. QUALITY SCORE / AD RANK (rappel condensé) -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section id="quality-score">
+    <h2><span class="num">01</span>Quality Score &amp; Ad Rank — Rappel approfondi</h2>
+    <p class="lead">Déjà couvert dans le premier guide — voici les nuances supplémentaires niveau senior.</p>
+
+    <h3>Ce que le QS affiché ne montre pas</h3>
+    <ul class="std">
+      <li>Le QS de niveau mot-clé (1-10) est un <b>diagnostic</b>, pas un input direct dans les enchères temps réel — Google utilise des scores en temps réel beaucoup plus granulaires (par requête, par device, par audience).</li>
+      <li>Un QS de 7 sur un mot-clé à faible volume a un impact différent qu'un QS de 7 sur un mot-clé à fort volume — le QS agrégé peut masquer des problèmes spécifiques.</li>
+      <li>Le QS n'existe pas pour Shopping et PMax — pour Shopping, l'équivalent est la qualité du flux produit (titre, image, disponibilité, prix compétitif).</li>
+    </ul>
+
+    <h3>Ad Rank — formule complète moderne</h3>
+    <div class="formula">Ad Rank = (CPC max × Quality Score) + Impact attendu des extensions et formats d'annonce + Seuils Ad Rank contextuels</div>
+    <div class="note"><span class="ic">💡</span>Les "seuils Ad Rank" varient selon la requête, la position et le contexte de l'utilisateur — c'est pourquoi le même mot-clé peut avoir un CPC différent pour deux utilisateurs identiques à des moments différents.</div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- 2. CORRESPONDANCES & NEGATIFS (avancé) -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section id="types-correspondance">
+    <h2><span class="num">02</span>Correspondances &amp; mots-clés négatifs — niveau avancé</h2>
+
+    <h3>L'évolution vers le Broad Match piloté par IA</h3>
+    <p>Depuis 2023, Google pousse activement le Broad Match combiné au Smart Bidding comme stratégie principale, en s'éloignant de l'Exact Match traditionnel. La logique : avec assez de données de conversion, l'algorithme identifie de meilleures requêtes qu'un humain ne taperait pas manuellement.</p>
+
+    <table class="data">
+      <tr><th>Scénario</th><th>Recommandation</th></tr>
+      <tr><td>Compte avec &gt; 50 conv/mois, tCPA/tROAS actif</td><td>Tester Broad Match sur les meilleurs groupes — garder Exact en parallèle pour comparaison</td></tr>
+      <tr><td>Compte avec &lt; 30 conv/mois</td><td>Rester en Expression/Exact — Broad sans Smart Bidding solide = dérive incontrôlée</td></tr>
+      <tr><td>Comptes B2B avec budget limité</td><td>Éviter Broad — le risque de requêtes hors-cible est trop coûteux par clic</td></tr>
+    </table>
+
+    <h3>Listes de négatifs — architecture professionnelle</h3>
+    <ul class="std">
+      <li><b>Liste Master Compte</b> : négatifs universels (concurrents non pertinents, termes d'emploi "carrière jobs", contenu pour adultes, termes gratuits non pertinents)</li>
+      <li><b>Listes par type de campagne</b> : ex. liste "PMax exclusions" appliquée à toutes les campagnes PMax pour éviter cannibalisation Brand</li>
+      <li><b>Listes saisonnières</b> : activées/désactivées selon la période (ex: exclure "gratuit" en période de promo où le terme devient pertinent)</li>
+      <li><b>Audit trimestriel obligatoire</b> : un négatif ajouté il y a 2 ans peut bloquer une nouvelle gamme de produits sans qu'on s'en rende compte</li>
+    </ul>
+
+    <div class="warn"><span class="ic">⚠</span><b>Piège classique :</b> un négatif exact <code>-[gratuit]</code> bloque uniquement la requête "gratuit" exacte, mais un négatif expression <code>-"gratuit"</code> bloque toute requête contenant ce mot, peu importe l'ordre. Beaucoup de comptes ont des négatifs mal configurés qui bloquent silencieusement du trafic valide depuis des mois.</div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- 3. STRATEGIES D'ENCHERES COMPLETES -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section id="strategies-encheres">
+    <h2><span class="num">03</span>Stratégies d'enchères — Catalogue complet</h2>
+    <p class="lead">Au-delà de tCPA/tROAS/Maximize Clicks, voici toutes les stratégies et leurs cas d'usage précis.</p>
+
+    <table class="data">
+      <tr><th>Stratégie</th><th>Mécanisme</th><th>Cas d'usage idéal</th></tr>
+      <tr><td>Manual CPC</td><td>Enchère fixe définie par mot-clé/groupe</td><td>Comptes neufs sans historique, contrôle total pendant phase de test</td></tr>
+      <tr><td>Enhanced CPC (eCPC)</td><td>Ajuste le Manual CPC ±30% selon la probabilité de conversion</td><td>Transition douce entre Manual et Smart Bidding complet</td></tr>
+      <tr><td>Maximize Clicks</td><td>Dépense le budget pour maximiser les clics, CPC max optionnel</td><td>Notoriété, volume de trafic, comptes sans tracking conversion</td></tr>
+      <tr><td>Maximize Conversions</td><td>Dépense le budget pour maximiser les conversions, sans cible de coût</td><td>Comptes avec tracking fiable mais sans CPA cible défini, phase d'apprentissage</td></tr>
+      <tr><td>Maximize Conversion Value</td><td>Comme ci-dessus mais optimise la valeur totale, pas le nombre</td><td>E-commerce avec valeurs variables, avant de passer à tROAS</td></tr>
+      <tr><td>Target CPA (tCPA)</td><td>Maintient un CPA moyen autour de la cible</td><td>Volume de conversions stable, valeur de conversion homogène</td></tr>
+      <tr><td>Target ROAS (tROAS)</td><td>Maintient un ROAS moyen autour de la cible</td><td>E-commerce, valeurs de conversion variables</td></tr>
+      <tr><td>Target Impression Share</td><td>Vise un % d'IS à une position donnée (haut de page, absolu, n'importe où)</td><td>Brand defense, campagnes de notoriété où la position prime sur le coût</td></tr>
+      <tr><td>Target CPM</td><td>Vise un coût par mille impressions</td><td>Display/Video pour la notoriété</td></tr>
+      <tr><td>Cost Per View (CPV)</td><td>Paiement par vue vidéo (YouTube)</td><td>Campagnes vidéo TrueView</td></tr>
+      <tr><td>Portfolio Bid Strategies</td><td>Une stratégie partagée pilote plusieurs campagnes simultanément</td><td>Comptes complexes avec budgets et objectifs liés (voir section 4)</td></tr>
+    </table>
+
+    <h3>Période d'apprentissage — règles précises</h3>
+    <ul class="std">
+      <li>Toute nouvelle stratégie ou changement majeur (&gt;15-20% de la cible) déclenche une période d'apprentissage de <b>1 à 2 semaines</b></li>
+      <li>Pendant cette période, les performances sont volatiles — éviter de juger ou d'ajuster davantage</li>
+      <li>Le statut "Limité par les données" indique un volume insuffisant pour sortir de l'apprentissage — solution : élargir le ciblage, augmenter le budget, ou regrouper plusieurs campagnes via portfolio</li>
+      <li>Changer de stratégie d'enchère (ex: Maximize Conversions → tCPA) ne repart pas toujours de zéro si le changement est cohérent — mais surveiller quand même 2 semaines</li>
+    </ul>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- 4. PORTFOLIO BIDDING -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section id="portfolio-bidding">
+    <h2><span class="num">04</span>Portfolio Bid Strategies</h2>
+    <p class="lead">Une stratégie de portefeuille applique un objectif partagé (CPA, ROAS) à travers plusieurs campagnes — l'algorithme alloue le budget dynamiquement entre elles selon où les conversions sont les plus probables.</p>
+
+    <div class="grid2">
+      <div class="card">
+        <div class="card-title">Quand utiliser</div>
+        <ul class="std">
+          <li>Plusieurs campagnes visent le même objectif business (ex: 3 campagnes Search différentes pour un même produit)</li>
+          <li>Volume de conversions insuffisant par campagne individuelle mais suffisant en agrégat</li>
+          <li>Tu veux laisser l'algorithme réallouer le budget entre campagnes selon la performance</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-title">Risques</div>
+        <ul class="std">
+          <li>Perte de contrôle sur la répartition budgétaire par campagne — une campagne peut être "asséchée" si l'algo la juge moins performante</li>
+          <li>Difficile de justifier au client pourquoi le budget d'une campagne fluctue sans intervention</li>
+          <li>Moins de granularité dans le reporting individuel par campagne</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="note"><span class="ic">💡</span><b>Conseil senior :</b> utiliser le portfolio bidding pour des campagnes Brand + Non-Brand qui visent le même CPA, mais éviter de mélanger des campagnes avec des objectifs business fondamentalement différents (ex: notoriété + acquisition) dans le même portfolio.</div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- 5. PMAX DEEP DIVE -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section id="pmax-deep">
+    <h2><span class="num">05</span>Performance Max — Deep Dive</h2>
+    <p class="lead">PMax est devenu incontournable mais reste mal compris. Voici les leviers de contrôle réels qui existent — contrairement à la croyance "boîte noire totale".</p>
+
+    <h3>Les leviers de contrôle disponibles (souvent ignorés)</h3>
+    <table class="data">
+      <tr><th>Levier</th><th>Ce qu'il fait</th><th>Bonne pratique</th></tr>
+      <tr><td>Search Themes</td><td>Signaux de requêtes ajoutés manuellement par asset group (depuis 2023)</td><td>Ajouter 5-10 thèmes précis par asset group — agit comme des "mots-clés suggérés"</td></tr>
+      <tr><td>Audience Signals</td><td>Point de départ pour le ciblage (Customer Match, segments, intérêts)</td><td>Toujours fournir un signal — sans ça, PMax part en exploration pure pendant plus longtemps</td></tr>
+      <tr><td>Negative Keywords (compte)</td><td>Listes de négatifs au niveau compte s'appliquent aussi à PMax</td><td>Demander à Google Ads support l'ajout de négatifs niveau campagne PMax si besoin critique</td></tr>
+      <tr><td>URL Expansion</td><td>Permet à PMax de créer des annonces vers des pages non listées explicitement</td><td>Désactiver si tu veux un contrôle strict des landing pages, sinon laisser actif pour DSA-like behavior</td></tr>
+      <tr><td>Final URL exclusions</td><td>Exclut des pages spécifiques de PMax (ex: pages de carrière, blog)</td><td>Toujours exclure les pages non-transactionnelles</td></tr>
+      <tr><td>Brand Exclusions</td><td>Exclut le trafic de marque de PMax (nouveauté 2024)</td><td>Activer systématiquement si tu as une campagne Brand Search séparée</td></tr>
+      <tr><td>Asset Group structure</td><td>Plusieurs asset groups = plusieurs "thèmes" créatifs et d'audience</td><td>Un asset group par segment de produit/audience logique, pas par produit individuel</td></tr>
+      <tr><td>Channel Reporting</td><td>Rapport montrant la répartition Search/Display/YouTube/Discover/Gmail/Maps</td><td>Vérifier mensuellement — si 90% provient de Shopping, ajuster les attentes sur l'impact "vidéo"</td></tr>
+      <tr><td>Asset Report (niveau combinaison)</td><td>Performance par combinaison d'assets (depuis 2023)</td><td>Identifier les visuels/titres sous-performants et les remplacer</td></tr>
+    </table>
+
+    <h3>PMax vs Search — coexistence</h3>
+    <ul class="std">
+      <li>PMax priorise les correspondances <b>exactes</b> de tes campagnes Search standards — Search Exact Match garde la priorité sur le même mot-clé</li>
+      <li>Pour tout le reste (Broad, Expression, et le trafic hors mots-clés Search), PMax peut entrer en compétition avec tes autres campagnes</li>
+      <li>D'où l'importance des exclusions de marque et de l'analyse du Channel Report pour comprendre où PMax "vole" du trafic</li>
+    </ul>
+
+    <div class="warn"><span class="ic">⚠</span><b>Mythe à corriger en entrevue :</b> "PMax est une boîte noire totale, on ne peut rien faire" — c'est faux et révèle un manque de connaissance à jour. Il y a au moins 8 leviers de contrôle direct disponibles en 2024-2025.</div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- 6. GA4 + GTM AVANCÉ -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section id="ga4-gtm">
+    <h2><span class="num">06</span>GA4 + Google Tag Manager — Niveau avancé</h2>
+
+    <h3>Architecture GA4 essentielle pour le SEM</h3>
+    <ul class="std">
+      <li><b>Events vs Conversions :</b> tout event peut devenir une conversion marquée — mais seules certaines doivent être importées dans Google Ads (éviter de polluer avec des micro-events)</li>
+      <li><b>Paramètres personnalisés :</b> envoyer la valeur, la devise, et un identifiant de transaction unique pour chaque conversion e-commerce</li>
+      <li><b>Audiences GA4 :</b> créer des audiences basées sur des séquences d'événements (ex: "a vu 3 pages produit mais n'a pas ajouté au panier") puis les exporter vers Google Ads</li>
+      <li><b>Exploration "Attribution" :</b> comparer les modèles d'attribution directement dans GA4 sans dépendre uniquement de Google Ads</li>
+      <li><b>BigQuery Export (gratuit en GA4) :</b> permet l'analyse SQL des données brutes — utile pour de l'attribution custom ou du reporting avancé hors Looker Studio</li>
+    </ul>
+
+    <h3>Configuration GTM — checklist senior</h3>
+    <table class="data">
+      <tr><th>Élément</th><th>Bonne pratique</th></tr>
+      <tr><td>Environnements</td><td>Toujours avoir Dev/Staging/Prod séparés avec leurs propres conteneurs GTM ou variables d'environnement</td></tr>
+      <tr><td>Triggers de conversion</td><td>Basés sur des événements personnalisés poussés par le développeur (dataLayer.push), pas sur des clics génériques fragiles</td></tr>
+      <tr><td>Variables dataLayer</td><td>Standardiser les noms (ex: toujours <code>transaction_id</code>, jamais un mix de <code>order_id</code>/<code>orderId</code>/<code>transactionId</code>)</td></tr>
+      <tr><td>Server-Side GTM</td><td>Pour les comptes à fort volume — déplace le tracking côté serveur, contourne les bloqueurs de trackers et améliore la fiabilité des données</td></tr>
+      <tr><td>Consent Mode v2</td><td>OBLIGATOIRE depuis mars 2024 pour cibler l'EEE — impacte aussi les comptes canadiens avec trafic européen</td></tr>
+      <tr><td>Tests réguliers</td><td>Tag Assistant + GA4 DebugView avant chaque publication, jamais en production directement</td></tr>
+    </table>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- 7. CONVERSIONS AVANCÉES -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section id="conversions-avancees">
+    <h2><span class="num">07</span>Conversions avancées &amp; Enhanced Conversions</h2>
+
+    <h3>Enhanced Conversions for Web</h3>
+    <p>Envoie des données de première partie hashées (email, téléphone, nom, adresse) avec chaque conversion. Google les met en correspondance avec les comptes Google connectés pour récupérer des conversions qui seraient sinon perdues à cause des limitations de cookies tiers.</p>
+    <ul class="std">
+      <li>Configuration via Google Ads tag (gtag) ou Google Tag Manager — hashing automatique en SHA256</li>
+      <li>Amélioration typique du taux de mesure de conversion : <b>+5% à +15%</b> selon le secteur</li>
+      <li>Compatible avec Consent Mode — ne fonctionne que si le consentement est donné</li>
+    </ul>
+
+    <h3>Enhanced Conversions for Leads</h3>
+    <p>Variante pour les conversions offline/CRM — permet d'envoyer les données de contact hashées au moment du formulaire, puis de faire correspondre avec la conversion finale importée plus tard du CRM. Essentiel pour le B2B et l'immobilier.</p>
+
+    <h3>Value Rules</h3>
+    <p>Permet d'ajuster la valeur d'une conversion selon des règles (audience, localisation, appareil) sans changer le tracking de base. Exemple : un nouveau client vaut 1,3x la valeur d'un client existant pour orienter l'algorithme vers l'acquisition.</p>
+
+    <div class="note"><span class="ic">💡</span><b>Conseil senior :</b> en entrevue, mentionner spontanément les Enhanced Conversions montre que tu es à jour sur les évolutions post-cookies tiers — c'est un signal fort de niveau senior en 2024-2025.</div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- 8. PRIVACY / COOKIELESS -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section id="privacy-cookieless">
+    <h2><span class="num">08</span>Privacy &amp; le monde cookieless</h2>
+
+    <h3>Contexte</h3>
+    <p>La fin progressive des cookies tiers, le RGPD, et la Loi 25 au Québec ont transformé le tracking. Un senior doit comprendre l'écosystème complet de réponses techniques, pas juste "on a un bandeau de cookies".</p>
+
+    <table class="data">
+      <tr><th>Solution</th><th>Ce qu'elle résout</th><th>Effort d'implémentation</th></tr>
+      <tr><td>Consent Mode v2</td><td>Conformité légale + maintien d'une mesure modélisée même sans consentement</td><td>Moyen — config GTM + bandeau CMP (Cookiebot, OneTrust, Didomi)</td></tr>
+      <tr><td>Enhanced Conversions</td><td>Récupère les conversions perdues via correspondance 1P data hashée</td><td>Faible — quelques lignes dans GTM</td></tr>
+      <tr><td>Server-Side Tagging</td><td>Contourne les bloqueurs de trackers, données plus complètes et fiables</td><td>Élevé — infrastructure serveur (Google Cloud, etc.)</td></tr>
+      <tr><td>Conversion API (offline import)</td><td>Données CRM importées directement, indépendantes du tracking navigateur</td><td>Moyen — intégration API CRM ↔ Google Ads</td></tr>
+      <tr><td>Modeled Conversions</td><td>Google estime statistiquement les conversions non observées directement à partir des patterns observés</td><td>Automatique si Consent Mode actif — aucune action requise</td></tr>
+    </table>
+
+    <h3>Loi 25 (Québec) — points spécifiques SEM</h3>
+    <ul class="std">
+      <li>Obligation de bandeau de consentement explicite pour le suivi non essentiel (Google Ads, Meta Pixel, etc.)</li>
+      <li>Le consentement ne peut pas être "implicite par défaut" — opt-in requis, pas opt-out</li>
+      <li>Politique de confidentialité doit détailler les finalités précises de chaque outil de tracking utilisé</li>
+      <li>Obligation de tenir un registre des incidents de confidentialité</li>
+    </ul>
+
+    <div class="warn"><span class="ic">⚠</span>Beaucoup de sites au Québec ont encore des implémentations de consentement non conformes — un audit rapide de la configuration cookie/consent d'un nouveau client est une bonne pratique d'entrée en mandat.</div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- 9. ATTRIBUTION DEEP DIVE -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section id="attribution-deep">
+    <h2><span class="num">09</span>Attribution — Au-delà des modèles de base</h2>
+
+    <h3>Marketing Mix Modeling (MMM) — l'alternative à l'attribution au clic</h3>
+    <p>Le MMM utilise des modèles statistiques (régression, séries temporelles) sur des données agrégées (dépenses par canal, ventes totales, facteurs externes comme la météo ou la saisonnalité) pour estimer la contribution de chaque canal — <b>sans dépendre du tracking individuel</b>. C'est la réponse stratégique des grandes marques au monde cookieless.</p>
+    <ul class="std">
+      <li>Avantage : fonctionne même sans cookies, mesure l'impact incrémental réel, inclut les canaux offline (TV, radio)</li>
+      <li>Inconvénient : nécessite un historique de données important (généralement 1-2 ans), moins réactif au jour le jour que l'attribution digitale</li>
+      <li>Outils : Meridian (Google, open-source), Robyn (Meta, open-source), solutions payantes comme Nielsen ou Analytic Partners</li>
+    </ul>
+
+    <h3>Attribution vs Incrementality — la distinction clé</h3>
+    <table class="data">
+      <tr><th>Approche</th><th>Question posée</th><th>Limite</th></tr>
+      <tr><td>Attribution (last-click, DDA)</td><td>"À quel point de contact attribuer cette conversion ?"</td><td>Répartit un total fixe de conversions — ne dit rien sur ce qui se serait passé sans publicité</td></tr>
+      <tr><td>Incrementality (tests géo, holdout)</td><td>"Combien de conversions n'auraient PAS eu lieu sans cette dépense ?"</td><td>Nécessite des tests contrôlés, plus complexe à mettre en place</td></tr>
+      <tr><td>MMM</td><td>"Quelle est la contribution statistique de chaque canal sur les ventes totales ?"</td><td>Nécessite beaucoup de données historiques et une expertise statistique</td></tr>
+    </table>
+
+    <div class="note"><span class="ic">💡</span><b>Réponse d'entrevue avancée :</b> "L'attribution me dit comment répartir le crédit, mais l'incrementality me dit si ce crédit reflète une réalité causale. Un canal peut avoir 100% du crédit d'attribution sur des conversions qui auraient eu lieu organiquement de toute façon — c'est pour ça que je recommande des tests d'incrementality (geo holdout) pour les décisions budgétaires majeures."</div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- 10. AUDIENCES DEEP -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section id="audiences-deep">
+    <h2><span class="num">10</span>Audiences — Toutes les couches disponibles</h2>
+
+    <table class="data">
+      <tr><th>Type d'audience</th><th>Source</th><th>Usage stratégique</th></tr>
+      <tr><td>Remarketing standard</td><td>Visiteurs du site (tag Google Ads)</td><td>RLSA, Display remarketing, exclusions</td></tr>
+      <tr><td>Customer Match</td><td>Liste d'emails/téléphones importée</td><td>Cibler ou exclure des clients existants, créer des Similar (déprécié mais signal conservé pour PMax)</td></tr>
+      <tr><td>In-Market</td><td>Google détecte une intention d'achat active</td><td>Display, YouTube, PMax signals — bon pour prospection chaude</td></tr>
+      <tr><td>Affinity / Custom Affinity</td><td>Centres d'intérêt à long terme, ou personnalisés via mots-clés/URLs</td><td>Branding, notoriété — audiences plus larges et stables</td></tr>
+      <tr><td>Custom Segments</td><td>Combinaison de mots-clés, URLs, et apps pour cibler un comportement précis</td><td>Remplace Custom Intent + Custom Affinity (fusionnés en 2023)</td></tr>
+      <tr><td>Life Events</td><td>Événements de vie détectés (déménagement, mariage, graduation)</td><td>Secteurs concernés : immobilier, finance, assurance, mariage</td></tr>
+      <tr><td>Combined Audiences</td><td>Combinaison logique (ET/OU/SAUF) de plusieurs audiences</td><td>Ex: "In-Market Voyage" ET "Revenu élevé" SAUF "Clients existants"</td></tr>
+      <tr><td>Data Segments (Google Ads, 2024+)</td><td>Renommage/évolution de Customer Match avec intégrations CDP élargies</td><td>Connexion directe avec des CDP comme Segment ou Tealium</td></tr>
+      <tr><td>Demographics (détaillées)</td><td>Statut parental, situation d'emploi, niveau d'éducation, propriété immobilière</td><td>B2B (cibler "décideurs"), produits familiaux, finance</td></tr>
+    </table>
+
+    <h3>Stratégie de superposition (layering)</h3>
+    <p>Le niveau senior ne se contente pas d'une seule audience — il superpose intelligemment :</p>
+    <ul class="std">
+      <li><b>Ciblage</b> (qui voit l'annonce) : audience large type In-Market</li>
+      <li><b>Observation</b> (mesure sans restreindre) : Customer Match en observation pour voir l'overlap avec les clients existants sans exclure</li>
+      <li><b>Ajustement d'enchère</b> : +30% sur les segments démographiques à forte valeur observés historiquement</li>
+      <li><b>Exclusion</b> : Customer Match en exclusion pour les campagnes d'acquisition pure</li>
+    </ul>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- 11. SHOPPING & MERCHANT CENTER -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section id="shopping-feed">
+    <h2><span class="num">11</span>Shopping &amp; Google Merchant Center — Approfondi</h2>
+
+    <h3>Qualité du flux produit — les facteurs qui comptent vraiment</h3>
+    <table class="data">
+      <tr><th>Attribut</th><th>Impact</th><th>Bonne pratique</th></tr>
+      <tr><td>Titre produit</td><td>Impact direct sur le matching aux requêtes — équivalent du mot-clé en Shopping</td><td>Format : Marque + Type produit + Attributs clés (couleur, taille) + Modèle. Éviter le bourrage de mots-clés.</td></tr>
+      <tr><td>GTIN</td><td>Améliore drastiquement la correspondance et l'éligibilité aux fonctionnalités avancées</td><td>Toujours inclure si disponible — obligatoire pour certaines catégories depuis 2023</td></tr>
+      <tr><td>Disponibilité (in_stock)</td><td>Produits hors-stock ne sont pas diffusés — vérifier la fréquence de synchronisation</td><td>Synchronisation idéalement en temps réel ou multiple fois par jour</td></tr>
+      <tr><td>Prix compétitif</td><td>Impact direct sur le CTR et le taux de conversion Shopping</td><td>Surveiller via Price Competitiveness report dans Merchant Center</td></tr>
+      <tr><td>Images</td><td>Qualité visuelle = facteur de CTR majeur en Shopping</td><td>Fond blanc, haute résolution, pas de texte superposé (politique Google)</td></tr>
+      <tr><td>Custom Labels (0-4)</td><td>5 champs libres pour segmenter les campagnes</td><td>Utiliser pour : marge, bestseller, saison, nouveauté, marque propre vs distribuée</td></tr>
+    </table>
+
+    <h3>Feed Rules &amp; Supplemental Feeds</h3>
+    <ul class="std">
+      <li><b>Feed Rules :</b> transformations automatiques appliquées dans Merchant Center sans toucher au flux source (ex: ajouter un préfixe au titre, recalculer une marge)</li>
+      <li><b>Supplemental Feed :</b> flux secondaire qui enrichit le flux principal par identifiant produit — utile pour ajouter des custom labels gérés en interne sans dépendre de l'équipe technique pour chaque mise à jour</li>
+      <li><b>Automated Feeds :</b> Google peut scanner le site directement pour compléter les données manquantes — pratique mais moins de contrôle</li>
+    </ul>
+
+    <h3>Diagnostics Merchant Center à surveiller</h3>
+    <ul class="std">
+      <li><b>Statut du compte :</b> avertissements de politique (ex: prix incohérent entre flux et site) peuvent suspendre des produits silencieusement</li>
+      <li><b>Price Competitiveness :</b> identifie les produits où ton prix est significativement plus élevé que le marché</li>
+      <li><b>Best Sellers report :</b> identifie les produits demandés sur Google que tu ne vends pas (opportunité catalogue)</li>
+    </ul>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- 12. SCRIPTS & API -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section id="scripts-api">
+    <h2><span class="num">12</span>Scripts, API &amp; Automatisation</h2>
+
+    <h3>Google Ads Scripts — cas d'usage senior</h3>
+    <table class="data">
+      <tr><th>Script</th><th>Fonction</th></tr>
+      <tr><td>Budget pacing alert</td><td>Email automatique si le budget quotidien dépasse X% à une heure donnée — évite les surprises de fin de mois</td></tr>
+      <tr><td>Quality Score monitor</td><td>Liste hebdomadaire des mots-clés avec QS &lt; 5 pour priorisation</td></tr>
+      <tr><td>Dayparting dynamique</td><td>Ajuste les enchères selon météo, stock, ou horaires d'ouverture via API externe</td></tr>
+      <tr><td>N-gram analysis</td><td>Décompose les Search Terms en segments de mots pour identifier des patterns de négatifs à grande échelle</td></tr>
+      <tr><td>Anomaly detection</td><td>Compare les métriques jour vs jour précédent et alerte si écart &gt; seuil défini</td></tr>
+      <tr><td>Auto-pause low QS</td><td>Pause automatiquement les mots-clés sous un seuil de QS après X impressions sans conversion</td></tr>
+    </table>
+
+    <h3>Google Ads API — quand c'est nécessaire</h3>
+    <ul class="std">
+      <li>Gestion de comptes à grande échelle (centaines de campagnes, MCC avec dizaines de sous-comptes)</li>
+      <li>Synchronisation bidirectionnelle avec un CRM, ERP, ou plateforme de gestion de flux</li>
+      <li>Reporting personnalisé alimentant un data warehouse (BigQuery) pour analyse cross-canal</li>
+      <li>Outils tiers (Optmyzr, Adalysis, Skai) utilisent l'API en arrière-plan — comprendre ce qu'ils font permet de juger leur valeur ajoutée réelle</li>
+    </ul>
+
+    <h3>Bulk operations — Editor vs API vs Sheets</h3>
+    <table class="data">
+      <tr><th>Outil</th><th>Idéal pour</th></tr>
+      <tr><td>Google Ads Editor</td><td>Modifications ponctuelles à grande échelle, copier-coller entre comptes, travail hors-ligne</td></tr>
+      <tr><td>Google Sheets + Ads API/Add-on</td><td>Reporting récurrent, ajustements d'enchères basés sur une formule, équipes non-techniques</td></tr>
+      <tr><td>API directe (Python/autre)</td><td>Automatisations complexes, intégrations avec systèmes internes, logique conditionnelle avancée</td></tr>
+    </table>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- 13. STRUCTURES A GRANDE ECHELLE -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section id="structure-echelle">
+    <h2><span class="num">13</span>Structures de comptes à grande échelle</h2>
+
+    <h3>MCC (My Client Center) — organisation</h3>
+    <ul class="std">
+      <li><b>Structure multi-niveaux :</b> MCC principal → sous-MCC par marché/marque → comptes individuels — facilite la gestion de permissions et le reporting consolidé</li>
+      <li><b>Labels de comptes :</b> taguer les comptes par statut (actif, pause, test) pour filtrer rapidement dans les vues MCC</li>
+      <li><b>Templates de campagnes :</b> dans Google Ads Editor, créer un compte "template" pour dupliquer une structure standardisée vers de nouveaux comptes/marchés</li>
+    </ul>
+
+    <h3>Naming conventions — standard professionnel</h3>
+    <div class="formula">[Marché]_[Type]_[Objectif]_[Segment]_[KPI]<br>Ex: QC_Search_Acquisition_Bestsellers_tROAS</div>
+    <p>Une convention de nommage cohérente permet le filtrage automatique dans les rapports (Looker Studio, Sheets) sans devoir ouvrir chaque campagne individuellement.</p>
+
+    <h3>Multi-marchés / multi-langues</h3>
+    <ul class="std">
+      <li>Une campagne par marché géographique — ne jamais mélanger les devises/langues dans la même campagne même si le ciblage le permettrait techniquement</li>
+      <li>Les Listes de négatifs partagées doivent être traduites par marché — un négatif anglais ne bloque pas la requête française équivalente</li>
+      <li>Les Smart Bidding strategies ne doivent pas être partagées entre marchés à comportements d'achat très différents</li>
+    </ul>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- 14. BUDGET / PACING / FORECASTING -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section id="budget-pacing">
+    <h2><span class="num">14</span>Budgets, Pacing &amp; Forecasting</h2>
+
+    <h3>Forecasting avec Performance Planner</h3>
+    <p>L'outil Performance Planner de Google Ads simule l'impact de changements de budget sur les conversions projetées, basé sur l'historique du compte et les tendances du marché. Utile pour justifier une demande de budget auprès d'un client avec des projections data-driven plutôt que des estimations approximatives.</p>
+
+    <h3>Gestion du pacing — éviter les sur/sous-dépenses</h3>
+    <table class="data">
+      <tr><th>Situation</th><th>Cause probable</th><th>Action</th></tr>
+      <tr><td>Sous-dépense chronique</td><td>IS limitée par le rang (QS faible) ou ciblage trop restrictif</td><td>Améliorer QS, élargir le ciblage géo/audience, augmenter les enchères max</td></tr>
+      <tr><td>Sur-dépense en fin de mois</td><td>Budgets quotidiens mal calibrés vs jours du mois (28-31 jours)</td><td>Utiliser les budgets partagés ou ajuster mensuellement selon le nombre de jours réels</td></tr>
+      <tr><td>Pic de dépense un jour spécifique</td><td>Google peut dépenser jusqu'à 2x le budget quotidien certains jours (lissé sur le mois)</td><td>Normal — vérifier la moyenne mensuelle, pas le jour isolé</td></tr>
+    </table>
+
+    <h3>Saisonnalité — ajustements temporaires (Seasonality Adjustments)</h3>
+    <p>Pour des événements ponctuels de courte durée (soldes, lancement) où le comportement de conversion va changer drastiquement et temporairement, Google Ads permet de déclarer un "ajustement de saisonnalité" qui informe directement l'algorithme Smart Bidding — évite que l'algo interprète le pic comme une anomalie à corriger.</p>
+    <ul class="std">
+      <li>Durée recommandée : 1-7 jours pour un événement ponctuel (Black Friday, lancement produit)</li>
+      <li>Au-delà de 7 jours, utiliser plutôt un changement de tCPA/tROAS standard avec suivi manuel</li>
+    </ul>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- 15. EXPERIMENTATION & INCREMENTALITY -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section id="experimentation">
+    <h2><span class="num">15</span>Expérimentation &amp; Incrementality Testing</h2>
+
+    <h3>Drafts &amp; Experiments — bonnes pratiques statistiques</h3>
+    <ul class="std">
+      <li><b>Split du trafic :</b> 50/50 pour une comparaison directe, ou Cookie-based pour éviter qu'un même utilisateur voie les deux versions</li>
+      <li><b>Durée minimale :</b> couvrir au moins un cycle de conversion complet + variations hebdomadaires (minimum 2 semaines, idéalement incluant un weekend complet)</li>
+      <li><b>Significativité :</b> Google affiche un intervalle de confiance — viser 90-95% avant de conclure</li>
+      <li><b>Ce qui invalide un test :</b> changement externe pendant le test (promo, actualité, changement de prix) — toujours documenter le contexte</li>
+    </ul>
+
+    <h3>Geo Experiments — mesurer l'incrementality réelle</h3>
+    <p>Diviser des marchés géographiquement comparables en groupe test (avec la dépense) et groupe contrôle (sans, ou avec dépense réduite), puis comparer les conversions/ventes totales (pas juste celles attribuées au clic). C'est la méthode la plus rigoureuse pour répondre à "est-ce que cette dépense génère vraiment des ventes additionnelles ?"</p>
+
+    <table class="data">
+      <tr><th>Type de test</th><th>Principe</th><th>Cas d'usage</th></tr>
+      <tr><td>Geo Holdout</td><td>Pause complète d'un canal dans certaines régions, comparaison des ventes vs régions actives</td><td>Justifier ou remettre en question un budget Brand Search important</td></tr>
+      <tr><td>PSA (Public Service Ads) Test</td><td>Google remplace tes annonces par des annonces génériques dans le groupe contrôle — mesure l'incrementality sans perdre l'inventaire</td><td>Disponible directement dans Google Ads pour certains types de campagnes</td></tr>
+      <tr><td>Conversion Lift Studies</td><td>Étude native Google comparant exposés vs non-exposés à une campagne</td><td>YouTube et Display principalement — nécessite un budget minimum</td></tr>
+    </table>
+
+    <div class="note"><span class="ic">💡</span><b>Question piège fréquente :</b> "Pourquoi tester l'incrementality de la marque si elle a déjà le meilleur ROAS ?" — Réponse senior : un excellent ROAS apparent peut masquer une cannibalisation totale du trafic organique gratuit. Le test révèle la vraie valeur additionnelle.</div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- 16. CRO & LP AVANCE -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section id="cro-lp">
+    <h2><span class="num">16</span>CRO &amp; Landing Pages — Niveau avancé</h2>
+
+    <h3>Frameworks de priorisation des tests CRO</h3>
+    <table class="data">
+      <tr><th>Framework</th><th>Critères</th></tr>
+      <tr><td>PIE</td><td>Potential (potentiel d'amélioration) × Importance (trafic concerné) × Ease (facilité d'implémentation)</td></tr>
+      <tr><td>ICE</td><td>Impact × Confidence (confiance dans l'hypothèse) × Ease</td></tr>
+      <tr><td>PXL (ConversionXL)</td><td>Checklist de critères pondérés incluant les données qualitatives (heatmaps, enregistrements)</td></tr>
+    </table>
+
+    <h3>Tests multivariés (MVT) vs A/B</h3>
+    <ul class="std">
+      <li><b>A/B :</b> teste une variable à la fois, nécessite moins de trafic, résultats plus rapides et clairs</li>
+      <li><b>MVT :</b> teste plusieurs éléments simultanément et leurs interactions — nécessite un trafic très élevé (souvent &gt;50 000 visiteurs/mois) pour la significativité</li>
+      <li>En pratique pour le SEM : la plupart des comptes (hors très gros e-commerce) doivent rester en A/B sequential</li>
+    </ul>
+
+    <h3>Personnalisation dynamique de LP selon la source</h3>
+    <p>Niveau senior : utiliser des paramètres URL (UTM, gclid) pour personnaliser dynamiquement le contenu de la LP selon le mot-clé ou l'annonce d'origine — ex: afficher le titre de l'annonce comme H1 de la page (dynamic text replacement), augmentant le message match et donc le QS et le taux de conversion.</p>
+
+    <h3>Mobile-first — spécificités SEM</h3>
+    <ul class="std">
+      <li>Formulaires : champ unique par ligne, clavier adapté au type de champ (numérique pour téléphone)</li>
+      <li>Click-to-call visible sans scroll sur mobile pour les campagnes orientées appel</li>
+      <li>Vitesse mobile : viser un LCP &lt; 2,5s sur connexion 4G simulée, pas seulement desktop</li>
+    </ul>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- 17. MULTI-PLATEFORME -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section id="multiplatform">
+    <h2><span class="num">17</span>Écosystème multi-plateforme</h2>
+
+    <h3>Microsoft Advertising — au-delà des bases</h3>
+    <ul class="std">
+      <li><b>Import Google Ads :</b> synchronisation automatique possible — mais auditer les enchères et négatifs après import, le marché Bing a des CPC différents</li>
+      <li><b>Performance Max (Microsoft) :</b> équivalent existe depuis 2023, mêmes principes que Google avec inventaire Bing/MSN/Outlook</li>
+      <li><b>Vue d'ensemble marché :</b> Bing capture une part significative de l'audience 45+ et des utilisateurs Windows/Edge par défaut — pertinent pour B2B et finance</li>
+    </ul>
+
+    <h3>Coordination SEM ↔ Social Ads (Meta, LinkedIn, TikTok)</h3>
+    <table class="data">
+      <tr><th>Coordination</th><th>Pourquoi</th></tr>
+      <tr><td>Exclusions cross-canal</td><td>Exclure les convertisseurs récents d'une plateforme dans les campagnes prospection de l'autre — éviter le double-paiement pour le même utilisateur</td></tr>
+      <tr><td>Séquençage de funnel</td><td>Meta/TikTok pour la découverte (haut funnel), Search pour capter l'intention générée (bas funnel)</td></tr>
+      <tr><td>Cohérence de message</td><td>Le message vu sur Meta doit se retrouver dans l'annonce Search Brand pour la cohérence de marque (et le QS)</td></tr>
+      <tr><td>Attribution cross-canal</td><td>Le MMM (section 9) devient essentiel dès qu'on gère 2+ canaux payants majeurs — l'attribution last-click de chaque plateforme se contredit mutuellement</td></tr>
+    </table>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- 18. AGENCE / CLIENT -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section id="agence-client">
+    <h2><span class="num">18</span>Gestion agence/client &amp; reporting stratégique</h2>
+
+    <h3>Onboarding d'un nouveau compte — checklist senior</h3>
+    <ul class="std">
+      <li>Audit de la structure existante (campagnes, enchères, négatifs, audiences)</li>
+      <li>Audit du tracking (GA4, GTM, conversions Google Ads, valeurs)</li>
+      <li>Audit de la conformité (Consent Mode, Loi 25/RGPD)</li>
+      <li>Analyse historique 12 mois pour identifier la saisonnalité avant de fixer des KPIs</li>
+      <li>Calcul du seuil de rentabilité (CPA max / ROAS min) avec le client basé sur ses marges réelles</li>
+      <li>Définition d'un plan en phases : Quick wins (0-30j) → Optimisation structurelle (30-90j) → Croissance (90j+)</li>
+    </ul>
+
+    <h3>QBR (Quarterly Business Review) — structure</h3>
+    <ol style="margin-left: 18px; color:#333; font-size:13px; line-height:1.7;">
+      <li>Récapitulatif des objectifs du trimestre vs résultats réels</li>
+      <li>Évolution du marché et de la concurrence (Auction Insights sur 90 jours)</li>
+      <li>Tests réalisés et apprentissages — même les tests "négatifs" ont de la valeur</li>
+      <li>Impact business (pas seulement marketing) : contribution au revenu, nouveaux clients acquis</li>
+      <li>Roadmap du prochain trimestre avec priorisation claire</li>
+    </ol>
+
+    <h3>Gérer la pression sur les prix/honoraires</h3>
+    <p>Un senior sait articuler la valeur au-delà du temps passé : accès aux betas Google, expertise d'optimisation algorithmique, évitement d'erreurs coûteuses, veille continue. Face à "pourquoi payer une agence quand Google Ads s'auto-optimise", la réponse senior porte sur la <b>stratégie</b> (quoi optimiser, pour qui, avec quelles données) — l'algorithme exécute, mais ne définit pas la stratégie business.</p>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- 19. VEILLE & CARRIERE -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section id="veille-carriere">
+    <h2><span class="num">19</span>Veille, certifications &amp; trajectoire de carrière</h2>
+
+    <h3>Certifications à jour (2025-2026)</h3>
+    <div>
+      <span class="badge">Google Ads Search</span>
+      <span class="badge">Google Ads Measurement</span>
+      <span class="badge">Google Analytics (GA4)</span>
+      <span class="badge">Google Ads Display</span>
+      <span class="badge">Google Ads Shopping</span>
+      <span class="badge">Microsoft Advertising</span>
+      <span class="badge">Meta Blueprint</span>
+    </div>
+
+    <h3>Sources de veille incontournables</h3>
+    <ul class="std">
+      <li><b>Search Engine Land</b> — news quotidiennes, annonces officielles</li>
+      <li><b>PPC Hero / Optmyzr Blog</b> — tactiques avancées et études de cas</li>
+      <li><b>Google Ads Help &amp; Release Notes</b> — changements de plateforme directement à la source</li>
+      <li><b>Communautés LinkedIn / Reddit r/PPC</b> — discussions terrain en temps réel sur les bugs et changements non documentés</li>
+      <li><b>Newsletters spécialisées :</b> Marketing O'Clock, Paid Search Podcast</li>
+    </ul>
+
+    <h3>Trajectoire vers la direction</h3>
+    <table class="data">
+      <tr><th>Niveau</th><th>Focus principal</th><th>Compétence à développer</th></tr>
+      <tr><td>Spécialiste Senior</td><td>Exécution experte, optimisation, mentorat junior</td><td>Vision multi-canal, MMM, gestion de la complexité technique</td></tr>
+      <tr><td>Lead / Team Lead</td><td>Supervision d'une équipe, qualité du travail livré</td><td>Délégation, formation, standardisation des processus</td></tr>
+      <tr><td>Directeur Compte / Stratégie</td><td>Relation client stratégique, croissance du compte</td><td>Négociation, présentation exécutive, vision business globale</td></tr>
+      <tr><td>Directeur Numérique / VP</td><td>Vision multi-clients, P&amp;L, développement d'affaires</td><td>Leadership, gestion financière, positionnement de l'offre agence</td></tr>
+    </table>
+
+    <div class="note"><span class="ic">💡</span>Programmes pertinents pour la suite : MBA (HEC Montréal, Laval FSA), certifications en gestion de produit digital, ou formations en data science appliquée au marketing (pour le MMM et l'analyse avancée).</div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- 20. CHECKLIST FINALE -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section id="checklist-finale">
+    <h2><span class="num">20</span>Checklist — Maîtrise senior complète</h2>
+    <p class="lead">Si tu peux répondre "oui, je sais expliquer ça" à chaque ligne, tu es prêt pour un rôle senior et au-delà.</p>
+
+    <div class="grid2">
+      <div class="card">
+        <div class="card-title">Technique &amp; plateforme</div>
+        <ul class="std">
+          <li>Expliquer les 8 leviers de contrôle de PMax</li>
+          <li>Différencier Portfolio Bidding vs stratégies individuelles</li>
+          <li>Configurer Enhanced Conversions et Consent Mode v2</li>
+          <li>Lire et agir sur un rapport Merchant Center diagnostics</li>
+          <li>Écrire ou adapter un script Google Ads simple</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-title">Stratégie &amp; mesure</div>
+        <ul class="std">
+          <li>Différencier attribution, incrementality et MMM</li>
+          <li>Concevoir un geo holdout test</li>
+          <li>Calculer un CPA/ROAS cible à partir de la LTV et marge</li>
+          <li>Structurer un compte 5000+ SKUs sans micro-gestion</li>
+          <li>Présenter un QBR orienté impact business</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-title">Conformité &amp; écosystème</div>
+        <ul class="std">
+          <li>Expliquer les implications de la Loi 25 sur le tracking</li>
+          <li>Coordonner exclusions cross-canal (Search ↔ Social)</li>
+          <li>Auditer un compte à l'onboarding en moins d'une journée</li>
+          <li>Justifier la valeur d'une agence face à l'auto-optimisation IA</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-title">Posture professionnelle</div>
+        <ul class="std">
+          <li>Montrer un processus de diagnostic, pas une réponse mémorisée</li>
+          <li>Documenter les désaccords stratégiques avec un client</li>
+          <li>Mentorer un junior sur une optimisation complexe</li>
+          <li>Articuler sa trajectoire de carrière vers la direction</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<a href="#" class="back-top">↑</a>
+
+<script>
+  // Highlight active nav link on scroll
+  const sections = document.querySelectorAll('section');
+  const links = document.querySelectorAll('.nav-link');
+
+  function onScroll() {
+    let current = '';
+    sections.forEach(sec => {
+      const rect = sec.getBoundingClientRect();
+      if (rect.top <= 120) current = sec.id;
+    });
+    links.forEach(link => {
+      link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+    });
+  }
+  window.addEventListener('scroll', onScroll);
+  onScroll();
+</script>
+</body>
+</html>
